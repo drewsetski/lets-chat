@@ -19,7 +19,7 @@ import Header from '../components/header';
 import Messages from '../components/messages';
 import Entry from '../components/entry';
 
-export default class Conversation extends Component {
+class Conversation extends Component {
     constructor(props) {
         super(props);
         this.sendMessage = this.sendMessage.bind(this);

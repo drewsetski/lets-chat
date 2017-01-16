@@ -17,6 +17,7 @@ import createStore from './store';
 import App from './views/app';
 import Browser from './views/browser';
 import Conversation from './views/conversation';
+import Notes from './views/notes';
 
 const store = createStore();
 
@@ -27,6 +28,8 @@ ReactDOM.render(
         <Router history={history}>
             <Route path="/m" component={App}>
                 <IndexRoute component={Browser}/>
+                <Route path="notes" component={Notes} />
+                <Route path="notes/:id" component={Notes} />
                 <Route path="room/:id" component={Conversation} />
             </Route>
         </Router>

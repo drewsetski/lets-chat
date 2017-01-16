@@ -72,6 +72,7 @@ class App extends Component {
                 <Sidebar>
                     <UserMenu isFetching={this.props.user.isFetching} {...this.props.user.profile} />
                     <Tabs
+                        route={this.props.routes[this.props.routes.length - 1]}
                         selected={this.props.params.id}
                         conversations={this.props.conversations.items} />
                     <Connection isConnected={this.props.connection.isConnected} />

@@ -38,3 +38,9 @@ auth:
   providers: [local]
   local:
     enableRegistration: true
+
+evernote:
+  apiKey: drewsetski-4682
+  apiSecret: e6d6fb5caccbc883
+  sendbox: true
+  china: false

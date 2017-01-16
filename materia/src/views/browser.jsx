@@ -12,7 +12,7 @@ import {
     fetchRooms
 } from '../actions';
 
-export default class Browser extends Component {
+class Browser extends Component {
     constructor(props) {
         super(props);
     };

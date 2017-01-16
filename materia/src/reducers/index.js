@@ -1,10 +1,10 @@
 'use strict';
 
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
 import update from 'react-addons-update';
 
-import { routerReducer as routing } from 'react-router-redux';
+import {routerReducer as routing} from 'react-router-redux';
 
 import {
     CLIENT_CONNECTED,
@@ -20,7 +20,14 @@ import {
     RECEIVE_CONVERSATION_MESSAGES,
     ATTEMPT_CONVERSATION_MESSAGE,
     CONFIRM_CONVERSATION_MESSAGE,
-    RECEIVE_CONVERSATION_MESSAGE
+    RECEIVE_CONVERSATION_MESSAGE,
+    EVERNOTE_CONNECTED,
+    EVERNOTE_DISCONNECTED,
+    EVERNOTE_ERROR,
+    REQUEST_NOTES,
+    RECEIVE_NOTES,
+    REQUEST_NOTE,
+    RECEIVE_NOTE,
 } from '../actions';
 
 function connection(state = {
@@ -44,7 +51,8 @@ function connection(state = {
             });
         default:
             return state;
-    };
+    }
+    ;
 };
 
 function user(state = {
@@ -63,7 +71,8 @@ function user(state = {
             });
         default:
             return state;
-    };
+    }
+    ;
 };
 
 function rooms(state = {
@@ -173,11 +182,65 @@ function conversations(state = {
             return state;
     }
 };
+function notes(state = {
+    isFetching: false,
+    noteIsFetching: false,
+    checkedConnection: false,
+    isConnected: false,
+    hasError: false,
+    errorMessage: null,
+    notes: [],
+    selectedNote: {}
+}, action) {
+    switch (action.type) {
+        case EVERNOTE_CONNECTED:
+            return Object.assign({}, state, {
+                isConnected: true,
+                checkedConnection: true,
+                hasError: false,
+                errorMessage: null
+            });
+        case EVERNOTE_DISCONNECTED:
+            return Object.assign({}, state, {
+                isConnected: false,
+                checkedConnection: true,
+                hasError: false,
+                errorMessage: null
+            });
+        case EVERNOTE_ERROR:
+            return Object.assign({}, state, {
+                hasError: true,
+                errorMessage: action.errorMessage
+            });
+        case REQUEST_NOTES:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+        case RECEIVE_NOTES:
+            return Object.assign({}, state, {
+                isFetching: false,
+                notes: action.notes
+            });
+        case REQUEST_NOTE:
+            return Object.assign({}, state, {
+                noteIsFetching: true,
+                selectedNote: {}
+            });
+        case RECEIVE_NOTE:
+            return Object.assign({}, state, {
+                noteIsFetching: false,
+                selectedNote: action.selectedNote
+            });
+        default:
+            return state;
+    }
+};
 
 export default combineReducers(Object.assign({}, {
     routing,
     connection,
     user,
     rooms,
-    conversations
+    conversations,
+    notes
 }));
